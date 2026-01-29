@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown to March 18th 💖</title>
+    <title>Countdown to March 18th 💖 For Pooja</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -40,12 +40,18 @@
             color: rgba(255, 105, 180, 0.15);
             font-size: 1.5rem;
             z-index: 0;
+            animation: float 5s infinite ease-in-out;
         }
         
-        .heart:nth-child(1) { top: 30px; left: 40px; }
-        .heart:nth-child(2) { top: 60px; right: 50px; }
-        .heart:nth-child(3) { bottom: 50px; left: 60px; }
-        .heart:nth-child(4) { bottom: 80px; right: 40px; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+        
+        .heart:nth-child(1) { top: 30px; left: 40px; animation-delay: 0s; }
+        .heart:nth-child(2) { top: 60px; right: 50px; animation-delay: 1s; }
+        .heart:nth-child(3) { bottom: 50px; left: 60px; animation-delay: 2s; }
+        .heart:nth-child(4) { bottom: 80px; right: 40px; animation-delay: 3s; }
         
         .header {
             margin-bottom: 40px;
@@ -148,63 +154,114 @@
             font-weight: 600;
         }
         
-        /* Message section */
-        .message-container {
-            background: rgba(255, 240, 245, 0.9);
+        /* Love message */
+        .love-container {
+            background: linear-gradient(135deg, #ff4081, #ff79a5);
             border-radius: 15px;
             padding: 30px;
-            margin-top: 40px;
-            border-left: 5px solid #ff4081;
+            margin: 30px 0;
+            color: white;
+            box-shadow: 0 10px 25px rgba(255, 64, 129, 0.3);
         }
         
-        .message-title {
-            font-size: 1.4rem;
-            color: #d63384;
-            margin-bottom: 15px;
+        .love-message-main {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .love-message-sub {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        /* Photo section */
+        .photo-section {
+            margin: 30px 0;
+            padding: 25px;
+            background: rgba(255, 240, 245, 0.9);
+            border-radius: 15px;
+            border: 3px dashed #ff4081;
+        }
+        
+        .photo-placeholder {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            background: linear-gradient(135deg, #ffccd5, #ffafcc);
+            border-radius: 15px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            color: #d63384;
+            font-size: 4rem;
         }
         
-        .love-message {
-            font-size: 1.2rem;
+        .photo-placeholder i {
+            margin-bottom: 15px;
+        }
+        
+        .photo-instructions {
             color: #666;
-            line-height: 1.6;
-            font-style: italic;
+            margin-top: 15px;
+            font-size: 0.9rem;
         }
         
-        .love-message i {
-            color: #ff4081;
-            margin: 0 5px;
-        }
-        
-        /* Progress bar */
+        /* Fixed Progress bar */
         .progress-container {
             margin-top: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
         
         .progress-text {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             color: #d63384;
             font-weight: 600;
+            font-size: 1.1rem;
         }
         
         .progress-bar {
-            height: 12px;
+            height: 20px;
             background: rgba(255, 105, 180, 0.2);
-            border-radius: 6px;
+            border-radius: 10px;
             overflow: hidden;
+            position: relative;
         }
         
         .progress-fill {
             height: 100%;
             background: linear-gradient(to right, #ff4081, #ff79a5);
-            border-radius: 6px;
+            border-radius: 10px;
             width: 0%;
             transition: width 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                transparent 25%, 
+                rgba(255, 255, 255, 0.3) 50%, 
+                transparent 75%);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
         
         /* Footer */
@@ -226,6 +283,10 @@
                 gap: 10px;
             }
             
+            .love-message-main {
+                font-size: 1.7rem;
+            }
+            
             .timer {
                 gap: 15px;
             }
@@ -245,6 +306,10 @@
                 font-size: 1.8rem;
             }
             
+            .love-message-main {
+                font-size: 1.5rem;
+            }
+            
             .time-unit {
                 min-width: 100px;
                 padding: 15px 10px;
@@ -256,6 +321,12 @@
             
             .time-label {
                 font-size: 1rem;
+            }
+            
+            .photo-placeholder {
+                width: 150px;
+                height: 150px;
+                font-size: 3rem;
             }
         }
     </style>
@@ -306,41 +377,53 @@
             </div>
         </div>
         
+        <!-- Love Message -->
+        <div class="love-container">
+            <div class="love-message-main">
+                I LOVE YOU POOJA! 💕
+            </div>
+            <div class="love-message-sub">
+                Every second counts until we're together on March 18th!
+            </div>
+        </div>
+        
+        <!-- Photo Section -->
+        <div class="photo-section">
+            <h3><i class="fas fa-camera"></i> Special Photo</h3>
+            <div class="photo-placeholder" id="photoPlaceholder">
+                <i class="fas fa-heart"></i>
+                <div style="font-size: 1rem; margin-top: 10px;">Add your photo</div>
+            </div>
+            <p class="photo-instructions">
+                To add a photo: Upload a file named "photo.jpg" to your GitHub repository
+            </p>
+        </div>
+        
+        <!-- Fixed Progress Bar -->
         <div class="progress-container">
             <div class="progress-text">
-                <span>Time passed</span>
+                <span>Countdown Progress</span>
                 <span id="progressPercent">0%</span>
             </div>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
             </div>
-        </div>
-        
-        <div class="message-container">
-            <h3 class="message-title">
-                <i class="fas fa-quote-left"></i>
-                A Special Message
-                <i class="fas fa-quote-right"></i>
-            </h3>
-            <p class="love-message" id="dynamicMessage">
-                <i class="fas fa-heart"></i>
-                Every second that passes brings us 
-                <span id="timeWord">closer</span> to March 18th! 
-                <i class="fas fa-heart"></i>
-            </p>
+            <div style="margin-top: 10px; color: #666; font-size: 0.9rem;">
+                <i class="fas fa-info-circle"></i> Shows time passed since last March 18th
+            </div>
         </div>
         
         <div class="footer">
-            <p>This countdown updates in real-time • Made with <i class="fas fa-heart" style="color:#ff4081;"></i></p>
+            <p>Made with <i class="fas fa-heart" style="color:#ff4081;"></i> • Updates every second • For Pooja 💖</p>
         </div>
     </div>
 
     <script>
-        // Set the target date: March 18th, 12:00 AM of the next occurrence
+        // Set the target date: March 18th, 12:00 AM
         function getMarch18() {
             const now = new Date();
             const currentYear = now.getFullYear();
-            let march18 = new Date(currentYear, 2, 18, 0, 0, 0); // March is month 2 (0-indexed)
+            let march18 = new Date(currentYear, 2, 18, 0, 0, 0); // March is month 2
             
             // If March 18 has already passed this year, set it for next year
             if (now > march18) {
@@ -348,6 +431,36 @@
             }
             
             return march18;
+        }
+        
+        // FIXED: Correct progress bar calculation
+        function updateProgressBar(targetDate) {
+            const now = new Date();
+            
+            // Get last March 18th (or current if not passed yet)
+            const currentYear = now.getFullYear();
+            let lastMarch18 = new Date(currentYear, 2, 18, 0, 0, 0);
+            
+            // If we're before March 18 this year, use last year's March 18
+            if (now < lastMarch18) {
+                lastMarch18 = new Date(currentYear - 1, 2, 18, 0, 0, 0);
+            }
+            
+            const totalDuration = targetDate - lastMarch18;
+            const elapsed = now - lastMarch18;
+            
+            let percentage = (elapsed / totalDuration) * 100;
+            percentage = Math.min(Math.max(percentage, 0), 100); // Clamp between 0-100
+            
+            document.getElementById('progressFill').style.width = `${percentage}%`;
+            document.getElementById('progressPercent').textContent = `${Math.round(percentage)}%`;
+            
+            // Color change based on percentage
+            if (percentage > 90) {
+                document.getElementById('progressFill').style.background = 'linear-gradient(to right, #ff4081, #ff0040)';
+            } else if (percentage > 70) {
+                document.getElementById('progressFill').style.background = 'linear-gradient(to right, #ff4081, #ff5252)';
+            }
         }
         
         // Calculate time difference
@@ -374,9 +487,6 @@
             
             // Update progress bar
             updateProgressBar(targetDate);
-            
-            // Update dynamic message
-            updateDynamicMessage(days, hours, minutes);
         }
         
         // Update the "Time left until March 18th" text
@@ -394,44 +504,45 @@
             document.getElementById('timeLeftText').innerHTML = `<i class="far fa-clock"></i> ${text}`;
         }
         
-        // Update the progress bar
-        function updateProgressBar(targetDate) {
-            const now = new Date();
-            const startDate = new Date(targetDate.getFullYear() - 1, 2, 18, 0, 0, 0);
-            const totalDuration = targetDate - startDate;
-            const elapsed = now - startDate;
+        // Check if photo exists
+        function checkForPhoto() {
+            // Try to load photo.jpg from the repository
+            const photoUrl = 'https://raw.githubusercontent.com/buyandbless2010-lab/March-18-countdown/main/photo.jpg';
+            const img = new Image();
             
-            let percentage = (elapsed / totalDuration) * 100;
-            percentage = Math.min(Math.max(percentage, 0), 100); // Clamp between 0 and 100
+            img.onload = function() {
+                // Photo exists! Replace placeholder
+                document.getElementById('photoPlaceholder').innerHTML = `
+                    <img src="${photoUrl}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;">
+                `;
+                document.querySelector('.photo-instructions').innerHTML = `
+                    <i class="fas fa-check-circle" style="color: #4CAF50;"></i>
+                    Your special photo is displayed!
+                `;
+            };
             
-            document.getElementById('progressFill').style.width = `${percentage}%`;
-            document.getElementById('progressPercent').textContent = `${Math.round(percentage)}%`;
-        }
-        
-        // Update the dynamic love message
-        function updateDynamicMessage(days, hours, minutes) {
-            const messages = [
-                "Every moment brings us closer to that magical day! 💕",
-                "The countdown continues... each second is a heartbeat closer! 💖",
-                "Time flies when you're waiting for something special! ✨",
-                "Patience makes the heart grow fonder... almost there! 🌹",
-                "Good things come to those who wait... and wait we shall! 🌟"
-            ];
+            img.onerror = function() {
+                // Photo doesn't exist yet
+                document.querySelector('.photo-instructions').innerHTML = `
+                    To add a photo:<br>
+                    1. Go to your GitHub repository<br>
+                    2. Upload a file named "photo.jpg"<br>
+                    3. Refresh this page after 2 minutes
+                `;
+            };
             
-            // Change message every 30 seconds
-            const messageIndex = Math.floor((new Date().getTime() / 30000) % messages.length);
-            document.getElementById('dynamicMessage').innerHTML = 
-                `<i class="fas fa-heart"></i> ${messages[messageIndex]} <i class="fas fa-heart"></i>`;
+            img.src = photoUrl + '?t=' + new Date().getTime(); // Prevent caching
         }
         
         // Initialize and update every second
         updateCountdown();
         setInterval(updateCountdown, 1000);
         
-        // Initial message update
-        updateDynamicMessage(0, 0, 0);
+        // Check for photo
+        setTimeout(checkForPhoto, 2000); // Check after 2 seconds
+        setInterval(checkForPhoto, 30000); // Check every 30 seconds
         
-        // Add some interactive effects
+        // Add click effects
         document.querySelectorAll('.time-unit').forEach(unit => {
             unit.addEventListener('click', function() {
                 this.style.transform = 'scale(0.95)';
@@ -442,3 +553,4 @@
         });
     </script>
 </body>
+</html>
