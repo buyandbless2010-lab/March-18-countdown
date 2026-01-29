@@ -155,7 +155,74 @@
             opacity: 0.9;
         }
         
-        /* NEW: Creative Countdown Timeline */
+        /* NEW: Poetic Message Section */
+        .poetic-message-container {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            border-radius: 15px;
+            padding: 35px 30px;
+            margin: 30px 0;
+            border: 2px dashed #ff79a5;
+            position: relative;
+            overflow: hidden;
+            min-height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .poetic-message-container::before {
+            content: "❝";
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            font-size: 4rem;
+            color: rgba(255, 105, 180, 0.2);
+            font-family: serif;
+        }
+        
+        .poetic-message-container::after {
+            content: "❞";
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 4rem;
+            color: rgba(255, 105, 180, 0.2);
+            font-family: serif;
+        }
+        
+        .poetic-message {
+            font-size: 1.5rem;
+            color: #d63384;
+            line-height: 1.6;
+            font-style: italic;
+            text-align: center;
+            padding: 0 10px;
+            font-weight: 500;
+            transition: opacity 0.8s ease-in-out;
+            z-index: 2;
+            position: relative;
+        }
+        
+        .poetic-author {
+            font-size: 1rem;
+            color: #ff4081;
+            margin-top: 15px;
+            font-weight: 600;
+            text-align: right;
+            padding-right: 20px;
+        }
+        
+        .message-counter {
+            position: absolute;
+            bottom: 10px;
+            left: 15px;
+            font-size: 0.8rem;
+            color: #ff79a5;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 3px 8px;
+            border-radius: 10px;
+        }
+        
         .timeline-container {
             background: rgba(255, 240, 245, 0.9);
             border-radius: 15px;
@@ -273,6 +340,10 @@
                 font-size: 1.7rem;
             }
             
+            .poetic-message {
+                font-size: 1.3rem;
+            }
+            
             .timer {
                 gap: 15px;
             }
@@ -307,6 +378,10 @@
             
             .love-message-main {
                 font-size: 1.5rem;
+            }
+            
+            .poetic-message {
+                font-size: 1.1rem;
             }
             
             .time-unit {
@@ -373,7 +448,15 @@
             </div>
         </div>
         
-        <!-- NEW: Creative Countdown Timeline -->
+        <!-- NEW: Poetic Message Section -->
+        <div class="poetic-message-container">
+            <div class="poetic-message" id="poeticMessage">
+                With every heartbeat, my love for you grows stronger...
+            </div>
+            <div class="poetic-author" id="poeticAuthor">- For Pooja</div>
+            <div class="message-counter" id="messageCounter">Message 1 of 50</div>
+        </div>
+        
         <div class="timeline-container">
             <h3 class="timeline-title">
                 <i class="fas fa-hourglass-half"></i>
@@ -401,6 +484,87 @@
     </div>
 
     <script>
+        // Poetic messages database (50 lovely messages)
+        const poeticMessages = [
+            {message: "With every heartbeat, my love for you grows stronger...", author: "My Heart"},
+            {message: "Seconds turn to moments, moments to memories of us...", author: "Time"},
+            {message: "Each tick of the clock brings me closer to your smile...", author: "The Clock"},
+            {message: "Like stars waiting for the night, I wait for March 18th...", author: "The Sky"},
+            {message: "Love is counting the seconds until I see you again...", author: "My Soul"},
+            {message: "Every moment apart is a moment closer to together...", author: "Destiny"},
+            {message: "Time may pass, but my love for you remains constant...", author: "Eternity"},
+            {message: "The universe counts with me, anticipating our day...", author: "The Cosmos"},
+            {message: "With each second, my思念 for you deepens...", author: "Longing"},
+            {message: "Even the moon marks time until our special date...", author: "Luna"},
+            {message: "Seconds are whispers of anticipation for our reunion...", author: "Hope"},
+            {message: "Every number that changes is a step toward your arms...", author: "Journey"},
+            {message: "Time flows like a river to the ocean of our meeting...", author: "Nature"},
+            {message: "The clock's hands dance toward the moment I hold you...", author: "Rhythm"},
+            {message: "Each second is a petal falling from the flower of time...", author: "Beauty"},
+            {message: "My love for you ticks louder than any clock...", author: "Passion"},
+            {message: "Waiting is just love's way of counting its blessings...", author: "Patience"},
+            {message: "The seconds bloom into minutes, minutes into our day...", author: "Blossom"},
+            {message: "Every moment without you is a moment loving you more...", author: "Paradox"},
+            {message: "Time weaves our story, second by beautiful second...", author: "Fate"},
+            {message: "The countdown is my heart's melody for you...", author: "Music"},
+            {message: "Each number that falls is a wish for your happiness...", author: "Wishes"},
+            {message: "Seconds are love notes from the future to the present...", author: "Romance"},
+            {message: "The universe pauses, anticipating our March 18th...", author: "Creation"},
+            {message: "Time is the canvas, our love is the masterpiece...", author: "Art"},
+            {message: "Every tick is a heartbeat longing for its other half...", author: "Completion"},
+            {message: "The seconds glow with the promise of your presence...", author: "Light"},
+            {message: "Counting time is just measuring how much I miss you...", author: "Missing You"},
+            {message: "Each moment is a thread in the tapestry of us...", author: "Weaving"},
+            {message: "The clock counts the steps until our souls meet again...", author: "Soulmates"},
+            {message: "Time is the river, March 18th is our destination...", author: "Journey's End"},
+            {message: "Every second whispers your name in my heart...", author: "Whispers"},
+            {message: "The countdown is my prayer for our togetherness...", author: "Prayer"},
+            {message: "Seconds are raindrops watering the garden of our love...", author: "Growth"},
+            {message: "Each number is a star guiding me to you...", author: "Guidance"},
+            {message: "Time bends toward the gravity of your love...", author: "Physics"},
+            {message: "The clock's rhythm matches the beating of my heart...", author: "Synchrony"},
+            {message: "Every moment is a love letter written by time itself...", author: "Letters"},
+            {message: "Seconds are the ink writing our beautiful story...", author: "Storyteller"},
+            {message: "The countdown is the music before our dance begins...", author: "Dance"},
+            {message: "Each tick is a brushstroke painting our future...", author: "Painter"},
+            {message: "Time is the bridge connecting my heart to yours...", author: "Connection"},
+            {message: "The seconds sparkle with anticipation of your smile...", author: "Sparkle"},
+            {message: "Every number is a breath I save to say 'I love you'...", author: "Breath"},
+            {message: "The countdown is the prelude to our forever...", author: "Forever"},
+            {message: "Seconds are the footsteps of time walking to you...", author: "Footsteps"},
+            {message: "Each moment is a pearl on the necklace of our days...", author: "Pearls"},
+            {message: "Time is the poet, writing verses of our love...", author: "Poet"},
+            {message: "The clock counts the heartbeats until I see you...", author: "Heartbeats"},
+            {message: "Every second is a promise of my eternal love for you...", author: "Eternal Promise"}
+        ];
+        
+        let currentMessageIndex = 0;
+        
+        // Function to update poetic message every second
+        function updatePoeticMessage() {
+            const messageElement = document.getElementById('poeticMessage');
+            const authorElement = document.getElementById('poeticAuthor');
+            const counterElement = document.getElementById('messageCounter');
+            
+            // Fade out
+            messageElement.style.opacity = '0';
+            authorElement.style.opacity = '0';
+            
+            setTimeout(() => {
+                // Update to next message
+                currentMessageIndex = (currentMessageIndex + 1) % poeticMessages.length;
+                const currentMessage = poeticMessages[currentMessageIndex];
+                
+                messageElement.textContent = currentMessage.message;
+                authorElement.textContent = `- ${currentMessage.author}`;
+                counterElement.textContent = `Message ${currentMessageIndex + 1} of ${poeticMessages.length}`;
+                
+                // Fade in
+                messageElement.style.opacity = '1';
+                authorElement.style.opacity = '1';
+            }, 800);
+        }
+        
         // Set the target date: March 18th, 12:00 AM
         function getMarch18() {
             const now = new Date();
@@ -451,7 +615,7 @@
             document.getElementById('timeLeftText').innerHTML = `<i class="far fa-clock"></i> ${text}`;
         }
         
-        // NEW: Create and update timeline
+        // Create and update timeline
         function updateTimeline(days) {
             const timelineContainer = document.getElementById('countdownTimeline');
             
@@ -482,7 +646,7 @@
             });
         }
         
-        // NEW: Update creative countdown facts
+        // Update creative countdown facts
         function updateCountdownFact(days, hours) {
             const factTitle = document.getElementById('factTitle');
             const factContent = document.getElementById('countdownFact');
@@ -535,19 +699,33 @@
             }
         }
         
-        // Initialize and update every second
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-        
-        // Add click effects
-        document.querySelectorAll('.time-unit').forEach(unit => {
-            unit.addEventListener('click', function() {
-                this.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    this.style.transform = '';
-                }, 200);
+        // Initialize everything
+        function initializePage() {
+            updateCountdown();
+            updatePoeticMessage();
+            
+            // Set intervals
+            setInterval(updateCountdown, 1000);
+            setInterval(updatePoeticMessage, 3000); // Change message every 3 seconds
+            
+            // Add click effects
+            document.querySelectorAll('.time-unit').forEach(unit => {
+                unit.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                });
             });
-        });
+            
+            // Allow clicking on poetic message to see next one
+            document.querySelector('.poetic-message-container').addEventListener('click', function() {
+                updatePoeticMessage();
+            });
+        }
+        
+        // Start everything when page loads
+        window.onload = initializePage;
     </script>
 </body>
 </html>
