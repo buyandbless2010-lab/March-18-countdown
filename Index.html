@@ -1,1 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown to March 18th 💖</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+            padding: 20px;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            width: 100%;
+            max-width: 900px;
+            padding: 50px 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Heart decorations */
+        .heart {
+            position: absolute;
+            color: rgba(255, 105, 180, 0.15);
+            font-size: 1.5rem;
+            z-index: 0;
+        }
+        
+        .heart:nth-child(1) { top: 30px; left: 40px; }
+        .heart:nth-child(2) { top: 60px; right: 50px; }
+        .heart:nth-child(3) { bottom: 50px; left: 60px; }
+        .heart:nth-child(4) { bottom: 80px; right: 40px; }
+        
+        .header {
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .main-title {
+            font-size: 2.8rem;
+            color: #d63384;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .main-title i {
+            color: #ff4081;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .target-date {
+            font-size: 1.5rem;
+            color: #e91e63;
+            background: rgba(255, 105, 180, 0.1);
+            padding: 12px 25px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+        
+        /* Countdown timer */
+        .countdown-container {
+            background: linear-gradient(135deg, #ffafcc, #ffccd5);
+            border-radius: 20px;
+            padding: 40px 30px;
+            margin: 40px 0;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+        }
+        
+        .time-left-text {
+            font-size: 1.5rem;
+            color: #b33971;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        
+        .timer {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .time-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            min-width: 150px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+        
+        .time-unit:hover {
+            transform: translateY(-10px);
+        }
+        
+        .time-value {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #e91e63;
+            line-height: 1;
+            margin-bottom: 10px;
+            text-shadow: 0 0 5px rgba(233, 30, 99, 0.2);
+        }
+        
+        .time-label {
+            font-size: 1.2rem;
+            color: #d63384;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        /* Message section */
+        .message-container {
+            background: rgba(255, 240, 245, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+            border-left: 5px solid #ff4081;
+        }
+        
+        .message-title {
+            font-size: 1.4rem;
+            color: #d63384;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .love-message {
+            font-size: 1.2rem;
+            color: #666;
+            line-height: 1.6;
+            font-style: italic;
+        }
+        
+        .love-message i {
+            color: #ff4081;
+            margin: 0 5px;
+        }
+        
+        /* Progress bar */
+        .progress-container {
+            margin-top: 40px;
+        }
+        
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: #d63384;
+            font-weight: 600;
+        }
+        
+        .progress-bar {
+            height: 12px;
+            background: rgba(255, 105, 180, 0.2);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #ff4081, #ff79a5);
+            border-radius: 6px;
+            width: 0%;
+            transition: width 1s ease;
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 40px;
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .main-title {
+                font-size: 2.2rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .timer {
+                gap: 15px;
+            }
+            
+            .time-unit {
+                min-width: 120px;
+                padding: 20px 15px;
+            }
+            
+            .time-value {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 1.8rem;
+            }
+            
+            .time-unit {
+                min-width: 100px;
+                padding: 15px 10px;
+            }
+            
+            .time-value {
+                font-size: 2.2rem;
+            }
+            
+            .time-label {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Heart decorations -->
+    <div class="heart">❤️</div>
+    <div class="heart">💖</div>
+    <div class="heart">💕</div>
+    <div class="heart">💗</div>
+    
+    <div class="container">
+        <div class="header">
+            <h1 class="main-title">
+                <i class="fas fa-heart"></i> 
+                Countdown to March 18th 
+                <i class="fas fa-heart"></i>
+            </h1>
+            <p class="subtitle">Every moment brings us closer to that special day</p>
+            <div class="target-date">
+                <i class="far fa-calendar-alt"></i> 
+                March 18, 12:00 AM
+            </div>
+        </div>
+        
+        <div class="countdown-container">
+            <div class="time-left-text" id="timeLeftText">
+                Time left until March 18th:
+            </div>
+            
+            <div class="timer">
+                <div class="time-unit">
+                    <div class="time-value" id="days">00</div>
+                    <div class="time-label">Days</div>
+                </div>
+                <div class="time-unit">
+                    <div class="time-value" id="hours">00</div>
+                    <div class="time-label">Hours</div>
+                </div>
+                <div class="time-unit">
+                    <div class="time-value" id="minutes">00</div>
+                    <div class="time-label">Minutes</div>
+                </div>
+                <div class="time-unit">
+                    <div class="time-value" id="seconds">00</div>
+                    <div class="time-label">Seconds</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-text">
+                <span>Time passed</span>
+                <span id="progressPercent">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+        
+        <div class="message-container">
+            <h3 class="message-title">
+                <i class="fas fa-quote-left"></i>
+                A Special Message
+                <i class="fas fa-quote-right"></i>
+            </h3>
+            <p class="love-message" id="dynamicMessage">
+                <i class="fas fa-heart"></i>
+                Every second that passes brings us 
+                <span id="timeWord">closer</span> to March 18th! 
+                <i class="fas fa-heart"></i>
+            </p>
+        </div>
+        
+        <div class="footer">
+            <p>This countdown updates in real-time • Made with <i class="fas fa-heart" style="color:#ff4081;"></i></p>
+        </div>
+    </div>
 
+    <script>
+        // Set the target date: March 18th, 12:00 AM of the next occurrence
+        function getMarch18() {
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            let march18 = new Date(currentYear, 2, 18, 0, 0, 0); // March is month 2 (0-indexed)
+            
+            // If March 18 has already passed this year, set it for next year
+            if (now > march18) {
+                march18 = new Date(currentYear + 1, 2, 18, 0, 0, 0);
+            }
+            
+            return march18;
+        }
+        
+        // Calculate time difference
+        function updateCountdown() {
+            const targetDate = getMarch18();
+            const now = new Date();
+            const timeDifference = targetDate - now;
+            
+            // Calculate days, hours, minutes, seconds
+            const totalSeconds = Math.floor(timeDifference / 1000);
+            const days = Math.floor(totalSeconds / (3600 * 24));
+            const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = Math.floor(totalSeconds % 60);
+            
+            // Update display
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+            
+            // Update time left text
+            updateTimeLeftText(days, hours, minutes);
+            
+            // Update progress bar
+            updateProgressBar(targetDate);
+            
+            // Update dynamic message
+            updateDynamicMessage(days, hours, minutes);
+        }
+        
+        // Update the "Time left until March 18th" text
+        function updateTimeLeftText(days, hours, minutes) {
+            let text = "Time left until March 18th: ";
+            
+            if (days > 0) {
+                text += `${days} day${days !== 1 ? 's' : ''}, ${hours} hour${hours !== 1 ? 's' : ''}`;
+            } else if (hours > 0) {
+                text += `${hours} hour${hours !== 1 ? 's' : ''}, ${minutes} minute${minutes !== 1 ? 's' : ''}`;
+            } else {
+                text += `${minutes} minute${minutes !== 1 ? 's' : ''}`;
+            }
+            
+            document.getElementById('timeLeftText').innerHTML = `<i class="far fa-clock"></i> ${text}`;
+        }
+        
+        // Update the progress bar
+        function updateProgressBar(targetDate) {
+            const now = new Date();
+            const startDate = new Date(targetDate.getFullYear() - 1, 2, 18, 0, 0, 0);
+            const totalDuration = targetDate - startDate;
+            const elapsed = now - startDate;
+            
+            let percentage = (elapsed / totalDuration) * 100;
+            percentage = Math.min(Math.max(percentage, 0), 100); // Clamp between 0 and 100
+            
+            document.getElementById('progressFill').style.width = `${percentage}%`;
+            document.getElementById('progressPercent').textContent = `${Math.round(percentage)}%`;
+        }
+        
+        // Update the dynamic love message
+        function updateDynamicMessage(days, hours, minutes) {
+            const messages = [
+                "Every moment brings us closer to that magical day! 💕",
+                "The countdown continues... each second is a heartbeat closer! 💖",
+                "Time flies when you're waiting for something special! ✨",
+                "Patience makes the heart grow fonder... almost there! 🌹",
+                "Good things come to those who wait... and wait we shall! 🌟"
+            ];
+            
+            // Change message every 30 seconds
+            const messageIndex = Math.floor((new Date().getTime() / 30000) % messages.length);
+            document.getElementById('dynamicMessage').innerHTML = 
+                `<i class="fas fa-heart"></i> ${messages[messageIndex]} <i class="fas fa-heart"></i>`;
+        }
+        
+        // Initialize and update every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+        
+        // Initial message update
+        updateDynamicMessage(0, 0, 0);
+        
+        // Add some interactive effects
+        document.querySelectorAll('.time-unit').forEach(unit => {
+            unit.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>
